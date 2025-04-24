@@ -4,106 +4,107 @@ import CertificatePage from "../certificate";
 
 const questions = [
   {
-    question: "What does HTML stand for?",
-    options: ["HyperText Markup Language", "HighText Markdown Language", "Hyperloop Machine Language"],
-    answer: 0,
+    question: "Câu 1: Ai là người đầu tiên đưa ra số đo lượng thông tin?",
+    options: ["C.E. Shannon", "V.A. Kachenhicov", "R.V.L. Hartley", "D.V. Ageev"],
+    answer: 2,
   },
   {
-    question: "Which tag is used for inserting a line break in HTML?",
-    options: ["<break>", "<br>", "<lb>"],
+    question: "Câu 2: Tín hiệu là gì trong lý thuyết thông tin?",
+    options: ["Dạng vật chất thể hiện thông tin", "Đơn vị đo của tin", "Đại lượng vật lý biến thiên mang tin cần truyền", "Một dạng sóng điện từ có tần số cố định"],
+    answer: 2,
+  },
+  {
+    question: "Câu 3: 'Nguồn tin' trong hệ thống truyền tin có chức năng gì?",
+    options: ["Biến tin thành tín hiệu", "Sinh ra thông tin", "Lưu trữ thông tin", "Giải mã thông tin"],
     answer: 1,
   },
   {
-    question: "Which CSS property controls the text size?",
-    options: ["font-style", "text-size", "font-size"],
+    question: "Câu 4: Một đặc điểm của nguồn tin rời rạc là:",
+    options: ["Có tập tin vô hạn", "Xác suất xuất hiện các tin luôn bằng nhau", "Có xác suất xuất hiện khác nhau", "Luôn được biểu diễn bằng sóng liên tục"],
     answer: 2,
   },
   {
-    question: "Inside which HTML element do we put the JavaScript?",
-    options: ["<js>", "<javascript>", "<script>"],
+    question: "Câu 5: Máy phát trong hệ thống truyền tin thực hiện những chức năng gì?",
+    options: ["Lưu trữ và giải mã tin", "Ghi và biểu diễn tin", "Mã hóa và điều chế tin", "Thu và xử lý tin"],
     answer: 2,
   },
   {
-    question: "What does CSS stand for?",
-    options: ["Cascading Style Sheets", "Creative Style Sheets", "Computer Style Sheets"],
+    question: "Câu 6: 'Khối điều chế' trong máy phát có vai trò gì?",
+    options: ["Tách tín hiệu thành các tần số khác nhau", "Biến đổi tin thành tín hiệu cao tần", "Lưu trữ tín hiệu", "Truyền tín hiệu đến máy thu"],
+    answer: 1,
+  },
+  {
+    question: "Câu 7: Đường truyền trong hệ thống truyền tin là gì?",
+    options: ["Thiết bị mã hóa tin", "Kênh vật lý truyền tín hiệu", "Bộ nhớ trung gian", "Thiết bị biểu diễn thông tin"],
+    answer: 1,
+  },
+  {
+    question: "Câu 8: Nhiễu được định nghĩa là gì?",
+    options: ["Tất cả các tín hiệu vô ích gây ảnh hưởng xấu đến thu tin", "Bất kỳ tín hiệu nào có biên độ lớn hơn tín hiệu chính", "Một loại méo tín hiệu do thiết bị gây ra", "Tín hiệu có cùng tần số với tín hiệu cần truyền"],
     answer: 0,
   },
   {
-    question: "Which HTML element is used to define a hyperlink?",
-    options: ["<link>", "<a>", "<href>"],
+    question: "Câu 9: Hệ thống truyền tin số có bao nhiêu khối chức năng chính?",
+    options: ["5", "6", "7", "8"],
+    answer: 2,
+  },
+  {
+    question: "Câu 10: Một đặc trưng quan trọng của tín hiệu là:",
+    options: ["Tần số", "Độ trễ", "Mật độ phổ công suất", "Năng lượng"],
+    answer: 3,
+  },
+  {
+    question: "Câu 11: Tin là gì?",
+    options: ["Kết quả xử lý thông tin", "Dạng cụ thể của thông tin", "Một loại tín hiệu cao tần", "Dạng nhiễu trong hệ thống"],
+    answer: 1,
+  },
+  {
+    question: "Câu 12: Tác nhân nào sau đây không phải là chức năng của 'nhận tin'?",
+    options: ["Ghi giữ tin", "Biểu thị tin", "Truyền lại tin", "Xử lý tin"],
+    answer: 2,
+  },
+  {
+    question: "Câu 13: Mục tiêu của lý thuyết thông tin là:",
+    options: ["Giảm công suất của tín hiệu", "Tăng độ phức tạp hệ thống", "Cân bằng giữa tốc độ và độ tin cậy truyền tin", "Loại bỏ hoàn toàn tín hiệu nhiễu"],
+    answer: 2,
+  },
+  {
+    question: "Câu 14: Độ tin cậy của hệ thống truyền tin được đánh giá dựa trên:",
+    options: ["Chi phí truyền tin", "BER (bit error rate)", "Tốc độ xử lý dữ liệu", "Nhiệt độ hệ thống"],
+    answer: 1,
+  },
+  {
+    question: "Câu 15: 'An toàn' trong truyền tin không bao gồm yếu tố nào sau đây?",
+    options: ["Bí mật", "Tính toàn vẹn", "Chi phí", "Xác thực"],
+    answer: 2,
+  },
+  {
+    question: "Câu 16: Lý thuyết thông tin phát triển mạnh mẽ nhất vào thời kỳ nào?",
+    options: ["Thế kỷ 19", "Đầu thế kỷ 20", "Giữa thế kỷ 20", "Cuối thế kỷ 20"],
+    answer: 2,
+  },
+  {
+    question: "Câu 17: Tác giả C.E. Shannon đã đưa ra định lý nổi tiếng về:",
+    options: ["Tốc độ truyền tối đa", "Nhiễu trắng", "Điều chế biên độ", "Lưu lượng kênh truyền"],
     answer: 0,
   },
   {
-    question: "Which of the following is a JavaScript data type?",
-    options: ["number", "string", "both"],
-    answer: 0,
+    question: "Câu 18: Mã hoá trong truyền tin có vai trò gì?",
+    options: ["Làm giảm độ tin cậy", "Làm tăng khả năng chống nhiễu", "Tăng độ phức tạp kênh", "Loại bỏ đường truyền"],
+    answer: 1,
   },
   {
-    question: "How do you create a comment in JavaScript?",
-    options: ["// This is a comment", "<!-- This is a comment -->", "# This is a comment"],
-    answer: 0,
+    question: "Câu 19: Một trong những đặc trưng của thông tin là:",
+    options: ["Có thể tạo ra từ không gian", "Luôn được mã hóa", "Mang tính khách quan", "Không thể đo lường"],
+    answer: 2,
   },
   {
-    question: "Which HTML element is used to display an image?",
-    options: ["<img>", "<image>", "<src>"],
-    answer: 0,
-  },
-  {
-    question: "Which CSS property is used to change the background color?",
-    options: ["background-color", "color", "bg-color"],
-    answer: 0,
-  },
-  {
-    question: "Which of the following is used to select an HTML element by its class in CSS?",
-    options: [".classname", "#idname", "<classname>"],
-    answer: 0,
-  },
-  {
-    question: "How can you make a numbered list in HTML?",
-    options: ["<ul>", "<ol>", "<li>"],
-    answer: 0,
-  },
-  {
-    question: "What does the 'box-sizing' property in CSS control?",
-    options: ["Content box size", "Padding and border inside box", "Layout of a box"],
-    answer: 0,
-  },
-  {
-    question: "What does 'let' do in JavaScript?",
-    options: ["Creates a variable", "Creates a constant", "Defines a function"],
-    answer: 0,
-  },
-  {
-    question: "Which method is used to find an element by its id in JavaScript?",
-    options: ["getElementById", "getById", "querySelector"],
-    answer: 0,
-  },
-  {
-    question: "Which property is used to change the font of an element in CSS?",
-    options: ["font-family", "font-style", "text-font"],
-    answer: 0,
-  },
-  {
-    question: "Which tag is used to define a table in HTML?",
-    options: ["<table>", "<tbl>", "<td>"],
-    answer: 0,
-  },
-  {
-    question: "How do you call a function in JavaScript?",
-    options: ["function_name()", "call function_name", "execute function_name"],
-    answer: 0,
-  },
-  {
-    question: "Which HTML element is used to create a form?",
-    options: ["<form>", "<input>", "<submit>"],
-    answer: 0,
-  },
-  {
-    question: "What is the correct syntax to create a variable in JavaScript?",
-    options: ["var variableName", "variable variableName", "let variableName"],
-    answer: 0,
+    question: "Câu 20: Yếu tố nào không phải là chỉ tiêu chất lượng của hệ thống truyền tin?",
+    options: ["Tính hữu hiệu", "Độ tin cậy", "An toàn", "Nhiệt độ môi trường"],
+    answer: 3,
   },
 ];
+
 
 
 const ExamPage = () => {

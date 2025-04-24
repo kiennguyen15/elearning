@@ -2,34 +2,34 @@ import { useNavigate } from "react-router-dom";
 
 const classes = [
     {
-        title: 'Quản trị hệ thống mạng Windows Server MCSA',
+        title: 'Chương 1. Những vấn để chung và những khái niệm cơ bản',
         progress: 0,
-        image: 'https://d303ny97lru840.cloudfront.net/k-5cac6776ce4b14365029fdae/20190615-tungnk06150619/1513158860_mcsa_windows_serve.jpg',
+        image: 'https://tuyensinh.uit.edu.vn/sites/default/files/uploads/images/201803/31-12-2017-cong-bo-10-su-kien-cong-nghe-thong-tin-truyen-thong-tieu-bieu-nam-2017-22904cea-details.jpg',
     },
     {
-        title: 'Chuyên gia mạng quốc tế CCNA Routing and Switching (phần mở rộng)',
+        title: 'Chương 2. Tín hiệu và nhiễu',
         progress: 0,
-        image: 'https://d303ny97lru840.cloudfront.net/k-5cac6776ce4b14365029fdae/20190615-tungnk06150619/1513158860_mcsa_windows_serve.jpg',
+        image: 'https://thptchuyensonla.edu.vn/wp-content/uploads/2020/06/nganh-it-o-viet-nam-wallpaper.jpg',
     },
     {
-        title: 'Chuyên gia mạng quốc tế CCNA Routing and Switching',
+        title: 'Chương 3. Cơ sở lý thuyết thông tin thống kê',
         progress: 0,
-        image: 'https://d303ny97lru840.cloudfront.net/k-5cac6776ce4b14365029fdae/20190615-tungnk06150619/1513158860_mcsa_windows_serve.jpg',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwmrGAs47hPpD1NobCYAMA797nXErKYRP1mw&s',
     },
     {
-        title: 'Quản trị hệ thống mạng Windows Server MCSA',
+        title: 'Chương 4. Cơ sở lý thuyết mã hoá',
         progress: 0,
-        image: 'https://d303ny97lru840.cloudfront.net/k-5cac6776ce4b14365029fdae/20190615-tungnk06150619/1513158860_mcsa_windows_serve.jpg',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Oqyti_vOHzKVeucxlX4jsPwwT1bDWn0zcA&s',
     },
     {
-        title: 'Chuyên gia mạng quốc tế CCNA Routing and Switching (phần mở rộng)',
+        title: 'Chương 5: Lý thuyết thu tối ưu',
         progress: 0,
-        image: 'https://d303ny97lru840.cloudfront.net/k-5cac6776ce4b14365029fdae/20190615-tungnk06150619/1513158860_mcsa_windows_serve.jpg',
+        image: 'https://funix.edu.vn/wp-content/uploads/2022/04/data-charts-man-601834022.jpg',
     },
     {
-        title: 'Chuyên gia mạng quốc tế CCNA Routing and Switching',
+        title: 'Chương 6. Mật mã',
         progress: 0,
-        image: 'https://d303ny97lru840.cloudfront.net/k-5cac6776ce4b14365029fdae/20190615-tungnk06150619/1513158860_mcsa_windows_serve.jpg',
+        image: 'https://ant.ncc.asia/wp-content/uploads/2023/06/image-143.png',
     },
 ];
 
@@ -37,7 +37,7 @@ const ClassesPage = () => {
     const navigate = useNavigate();
     return (
         <div className="p-6 min-h-screen container mx-auto">
-            <h1 className="text-2xl font-bold mb-6">Các lớp học đã tham gia</h1>
+            <h1 className="text-2xl font-bold mb-6">Các lớp Lý thuyết thông tin đã tham gia</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {classes.map((cls, index) => (
                     <div key={index} className="bg-white rounded-xl shadow p-4 cursor-pointer" onClick={() => navigate(`/chi-tiet-khoa-hoc`)}>

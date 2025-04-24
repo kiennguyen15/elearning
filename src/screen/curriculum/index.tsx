@@ -3,46 +3,49 @@ import { Link } from "react-router-dom";
 
 // Dữ liệu giả
 const course = {
-  title: "Khóa Học JavaScript Toàn Diện Từ Cơ Bản Đến Nâng Cao",
-  instructor: "Nguyễn Huy Hoàng",
+  title: "Khóa Học lý thuyết thông tin Từ Cơ Bản Đến Nâng Cao",
+  instructor: "G S.T S. Nguyễn Bình",
   rating: 4.8,
   enrolled: 1200,
   lastUpdated: "04/2025",
   hours: 3.2,
   students: 12140,
   description:
-    "Khóa học cung cấp nền tảng vững chắc về JavaScript, từ những kiến thức cơ bản đến kỹ thuật nâng cao, giúp bạn tự tin xây dựng các ứng dụng web hiện đại...",
+    "Khóa học Lý thuyết Thông tin cung cấp kiến thức nền tảng về cách đo lường, mã hóa và truyền tải thông tin trong các hệ thống truyền thông. Bạn sẽ hiểu rõ các khái niệm như entropy, nguồn tin, nhiễu, kênh truyền, cùng với các kỹ thuật mã hóa và giải mã để đảm bảo hiệu quả và độ tin cậy của việc truyền tin. Khóa học cũng là cơ sở quan trọng cho các lĩnh vực như viễn thông, bảo mật, trí tuệ nhân tạo và xử lý tín hiệu.",
   learning: [
-    "Cài đặt môi trường lập trình",
-    "Thực hành HTML nâng cao",
-    "Xây dựng Website Portfolio",
-    "Thiết kế giao diện Responsive",
-    "Hiểu rõ lập trình HTML",
-    "Viết mã HTML hiệu quả",
-    "Bắt đầu xây dựng các website đẹp mắt",
+    "Khái niệm cơ bản về thông tin",
+    "Cấu trúc hệ thống truyền tin",
+    "Mô hình nguồn tin rời rạc",
+    "Mã hóa nguồn và kênh",
+    "Khả năng truyền tin tối ưu",
+    "Hiểu rõ bản chất và lượng hóa thông tin",
+    "Nắm được cấu trúc và nguyên lý hoạt động của hệ thống truyền tin",
   ],
   requirements: [
     "Máy tính bất kỳ: Windows, macOS hoặc Linux",
-    "Kiến thức cơ bản về HTML và CSS",
-    "Hiểu biết cơ bản/tối thiểu về JavaScript",
+    "Kiến thức cơ bản ",
+    "Hiểu biết cơ bản/tối thiểu về Lý thuyết thông tintin",
   ],
   curriculum: [
     {
-      sectionTitle: "Giới thiệu về HTML",
+      sectionTitle: "Giới thiệu về LTTTLTTT",
       lectures: [
         { title: "Giới thiệu", duration: "4 phút" },
-        { title: "HTML là gì?", duration: "5 phút" },
-        { title: "Trang web là gì?", duration: "8 phút" },
-        { title: "Tạo trang web đầu tiên", duration: "4 phút", preview: true },
+        { title: "LTTT là gì?", duration: "5 phút" },
+        { title: "Trang web và các bài giảigiải?", duration: "8 phút" },
+        { title: "Làm bài tập", duration: "4 phút", preview: true },
         { title: "Đố vui nhanh", duration: "5 phút" },
       ],
     },
     {
-      sectionTitle: "Trang Web Đầu Tiên Của Bạn",
+      sectionTitle: "Các chương bạn cần học ",
       lectures: [
-        { title: "Tạo tệp đầu tiên", duration: "7 phút" },
-        { title: "Liên kết CSS", duration: "5 phút" },
-        { title: "Thêm hình ảnh", duration: "6 phút", preview: true },
+        { title: "Chương 1. Những vấn để chung và những khái niệm cơ bản", duration: "t" },
+        { title: "Chương 2. Tín hiệu và nhiễu", duration: "" },
+        { title: "Chương 3. Cơ sở lý thuyết thông tin thống kê", duration: "", preview: true },
+        { title: "Chương 4. Cơ sở lý thuyết mã hoá", duration: "", preview: true },
+        { title: "Chương 5: Lý thuyết thu tối ưu", duration: "", preview: true },
+        { title: "Chương 6. Mật mã", duration: "", preview: true },
       ],
     },
   ],
@@ -136,7 +139,7 @@ export default function CourseDetailPage() {
         <div className="border rounded-lg p-4 bg-white shadow-sm">
           <div className="text-center">
             <img
-              src="https://letdiv.com/wp-content/uploads/2024/04/khoa-hoc-html-css.jpg"
+              src="https://qtuupload.s3.ap-southeast-1.amazonaws.com/2024/11/nganh-cong-nghe-thong-tin-khoi-nao-768x512.png"
               alt="Xem trước khóa học"
               className="rounded-md mb-4"
             />
