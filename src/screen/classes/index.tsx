@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const classes = [
     {
-        title: 'Chương 1. Những vấn để chung và những khái niệm cơ bản',
+        title: 'Chương 1. Những vấn để chung và  khái niệm cơ bản',
         progress: 0,
         image: 'https://tuyensinh.uit.edu.vn/sites/default/files/uploads/images/201803/31-12-2017-cong-bo-10-su-kien-cong-nghe-thong-tin-truyen-thong-tieu-bieu-nam-2017-22904cea-details.jpg',
     },

@@ -42,10 +42,10 @@ const course = {
       lectures: [
         { title: "Chương 1. Những vấn để chung và những khái niệm cơ bản", duration: "t" },
         { title: "Chương 2. Tín hiệu và nhiễu", duration: "" },
-        { title: "Chương 3. Cơ sở lý thuyết thông tin thống kê", duration: "", preview: true },
-        { title: "Chương 4. Cơ sở lý thuyết mã hoá", duration: "", preview: true },
-        { title: "Chương 5: Lý thuyết thu tối ưu", duration: "", preview: true },
-        { title: "Chương 6. Mật mã", duration: "", preview: true },
+        { title: "Chương 3. Cơ sở lý thuyết thông tin thống kê", duration: "" },
+        { title: "Chương 4. Cơ sở lý thuyết mã hoá " , duration: "" },
+        { title: "Chương 5: Lý thuyết thu tối ưu", duration: "" },
+        { title: "Chương 6. Mật mã " , duration: ""},
       ],
     },
   ],
@@ -163,9 +163,9 @@ export default function CourseDetailPage() {
         <div>
           <h3 className="font-semibold text-sm mb-2">Khóa học liên quan</h3>
           <ul className="space-y-1 text-sm text-blue-600 underline">
-            <li>Khóa học JavaScript toàn diện từ cơ bản đến nâng cao</li>
-            <li>Xây dựng giao diện HTML & CSS phản hồi nhanh</li>
-            <li>Thiết kế web với Bootstrap và các kiến thức cơ bản</li>
+            <li></li>
+            <li></li>
+            <li></li>
           </ul>
         </div>
       </div>

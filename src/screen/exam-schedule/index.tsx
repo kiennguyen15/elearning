@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const examData = [
   {
-    title: "HTML & CSS Basic Quiz",
+    title: "Lý thuyết thông tin",
     date: new Date("2025-04-25"),
     time: "10:00 AM",
     duration: "30 phút",
@@ -48,14 +48,14 @@ const examData = [
     image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
   },
   {
-    title: "Thực Hành Git & GitHub",
+    title: "Bài tập LTTT",
     date: new Date("2025-04-25"),
     time: "10:00 AM",
     duration: "30 phút",
     image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
   },
   {
-    title: "Angular Căn Bản Quiz",
+    title: "Lý thuyết thông tin ",
     date: new Date("2025-04-06"),
     time: "9:00 AM",
     duration: "35 phút",
