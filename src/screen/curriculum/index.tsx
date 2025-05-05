@@ -94,7 +94,7 @@ export default function CourseDetailPage() {
           <p className="text-sm text-gray-600">
             Tạo bởi <span className="font-medium">{course.instructor}</span> • Cập nhật lần cuối {course.lastUpdated}
           </p>
-          <p className="text-yellow-500 mt-1">
+          <p className="text-red-500 mt-1">
             ⭐ {course.rating} • {course.enrolled} người đã đăng ký
           </p>
         </div>

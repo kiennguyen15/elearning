@@ -52,12 +52,20 @@ const CourseCard = ({ course }: { course: any }) => (
       alt={course.title}
       className="w-full h-[160px] object-cover"
     />
-    <div className="p-3">
-      <h3 className="font-medium text-base mb-1 leading-snug line-clamp-2">{course.title}</h3>
-      <p className="text-sm text-gray-600">{course.duration} • {course.lectures}</p>
-      <p className="text-sm text-gray-600">{course.instructor}</p>
+    <div className="p-3 flex flex-col justify-between h-[150px]"> {/* cố định chiều cao */}
+      <div>
+        <h3 className="font-medium text-base mb-1 leading-snug line-clamp-2 min-h-[48px]">
+          {course.title}
+        </h3>
+        <p className="text-sm text-gray-600">{course.duration} • {course.lectures}</p>
+        <p className="text-sm text-gray-600 min-h-[20px]">
+          {course.instructor || '' /* ký tự space để giữ chỗ nếu trống */}
+        </p>
+      </div>
       <Link to={`/chi-tiet-khoa-hoc`}>
-        <p className="text-indigo-600 font-semibold mt-1 cursor-pointer text-right">Tham gia</p>
+        <p className="text-indigo-600 font-semibold mt-1 cursor-pointer text-right">
+          Tham gia
+        </p>
       </Link>
     </div>
   </div>

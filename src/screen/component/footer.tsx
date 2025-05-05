@@ -37,8 +37,8 @@ const Footer = () => {
               placeholder="Email"
               className="flex-1 px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none"
             />
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition">
-              Đăng ký <i className="fas fa-arrow-right ml-1" />
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition whitespace-nowrap">
+              Đăng ký 
             </button>
           </div>
 

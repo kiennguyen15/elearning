@@ -36,13 +36,13 @@ const classes = [
 const ClassesPage = () => {
     const navigate = useNavigate();
     return (
-        <div className="p-6 min-h-screen container mx-auto">
+        <div className="md:p-6 p-2 min-h-screen container mx-auto">
             <h1 className="text-2xl font-bold mb-6">Các lớp Lý thuyết thông tin đã tham gia</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {classes.map((cls, index) => (
                     <div key={index} className="bg-white rounded-xl shadow p-4 cursor-pointer" onClick={() => navigate(`/chi-tiet-khoa-hoc`)}>
                         <img src={cls.image} alt={cls.title} className="w-full h-40 object-cover rounded-md mb-4" />
-                        <h2 className="text-lg font-semibold">{cls.title}</h2>
+                        <h2 className="text-lg font-semibold leading-snug line-clamp-2 min-h-[48px]">{cls.title}</h2>
                         <div className="mt-2">
                             <p className="text-sm text-gray-600 mb-1">Tiến độ của bạn</p>
                             <div className="w-full bg-gray-200 h-3 rounded-full">

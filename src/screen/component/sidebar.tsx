@@ -1,88 +1,127 @@
-import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome,
-  faBook,
   faChalkboardTeacher,
   faClipboardCheck,
   faCertificate,
-  faSignOutAlt,
   faUserGraduate,
   faChartBar,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const navigate = useNavigate();
-  return (
-    <aside className="sticky top-0 w-64 bg-[#1c1c2e] text-white h-screen p-6 flex flex-col justify-between">
-      <div>
-        <div className="text-2xl font-bold mb-8 cursor-pointer" onClick={() => navigate("/")}>
-          E-Learning<span className="text-gray-400">.</span>
-        </div>
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
-        <nav className="space-y-6">
-          <Link to="/">
-            <div className="flex items-center px-4 py-3 bg-[#2a2a3d] rounded-md cursor-pointer hover:bg-[#33334a] transition">
-              {/* Icon wrapper với width cố định */}
+  // Đóng khi click bên ngoài
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
+  // Hàm điều hướng kèm đóng sidebar
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    onClose();
+  };
+
+  return (
+    <aside
+      ref={sidebarRef}
+      className={`fixed top-0 left-0 h-full w-64 bg-[#1c1c2e] text-white p-6 z-50 transform transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
+        md:translate-x-0 md:sticky md:flex md:flex-col md:h-screen`}
+    >
+      <div className="flex flex-col justify-between h-full">
+        <div>
+          <div
+            className="text-2xl font-bold mb-8 cursor-pointer"
+            onClick={() => handleNavigate('/')}
+          >
+            E-Learning<span className="text-gray-400">.</span>
+          </div>
+
+          <nav className="space-y-6">
+            <div
+              onClick={() => handleNavigate('/')}
+              className="flex items-center px-4 py-3 bg-[#2a2a3d] rounded-md cursor-pointer hover:bg-[#33334a] transition"
+            >
               <span className="w-6 flex justify-center">
                 <FontAwesomeIcon icon={faHome} />
               </span>
               <span className="ml-4 font-semibold">Trang chủ</span>
             </div>
-          </Link>
 
-          <div>
-            <div className="text-xs text-gray-400 mb-4">HỌC TẬP</div>
-            <ul className="space-y-3">
-              <Link to="/lop-hoc">
-                <li className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition">
+            <div>
+              <div className="text-xs text-gray-400 mb-4">HỌC TẬP</div>
+              <ul className="space-y-3">
+                <li
+                  onClick={() => handleNavigate('/lop-hoc')}
+                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                >
                   <span className="w-6 flex justify-center">
                     <FontAwesomeIcon icon={faChalkboardTeacher} />
                   </span>
                   <span className="ml-4">Lớp học</span>
                 </li>
-              </Link>
-              <Link to="/">
-                <li className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition">
+                <li
+                  onClick={() => handleNavigate('/')}
+                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                >
                   <span className="w-6 flex justify-center">
                     <FontAwesomeIcon icon={faClipboardCheck} />
                   </span>
                   <span className="ml-4">Bài kiểm tra</span>
                 </li>
-              </Link>
-              <Link to="/lich-su-thi">
-                <li className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition">
+                <li
+                  onClick={() => handleNavigate('/lich-su-thi')}
+                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                >
                   <span className="w-6 flex justify-center">
                     <FontAwesomeIcon icon={faCertificate} />
                   </span>
                   <span className="ml-4">Chứng nhận</span>
                 </li>
-              </Link>
-            </ul>
-          </div>
+              </ul>
+            </div>
 
-          <div>
-            <div className="text-xs text-gray-400 mb-4">THỐNG KÊ & CÁ NHÂN</div>
-            <ul className="space-y-3">
-              <Link to="/">
-                <li className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition">
+            <div>
+              <div className="text-xs text-gray-400 mb-4">THỐNG KÊ & CÁ NHÂN</div>
+              <ul className="space-y-3">
+                <li
+                  onClick={() => handleNavigate('/')}
+                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                >
                   <span className="w-6 flex justify-center">
                     <FontAwesomeIcon icon={faUserGraduate} />
                   </span>
                   <span className="ml-4">Tiến độ học</span>
                 </li>
-              </Link>
-              <Link to="/">
-                <li className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition">
+                <li
+                  onClick={() => handleNavigate('/')}
+                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                >
                   <span className="w-6 flex justify-center">
                     <FontAwesomeIcon icon={faChartBar} />
                   </span>
                   <span className="ml-4">Thống kê</span>
                 </li>
-              </Link>
-            </ul>
-          </div>
-        </nav>
+              </ul>
+            </div>
+          </nav>
+        </div>
       </div>
     </aside>
   );
