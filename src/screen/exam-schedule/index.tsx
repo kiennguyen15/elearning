@@ -2,7 +2,7 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { format, isSameDay } from "date-fns";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const examData = [
   {
@@ -95,7 +95,11 @@ const ExamSchedule = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const WEEKDAYS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
   const examDates = examData.map((e) => format(e.date, "yyyy-MM-dd"));
+  const navigate = useNavigate();
 
+  const handleNavigate = () => {
+    navigate('/bai-thi');
+  };
   const tileClassName = ({ date, view }: { date: any; view: any }) => {
     const formatted = format(date, "yyyy-MM-dd");
     if (view === "month" && examDates.includes(formatted)) {
@@ -122,9 +126,9 @@ const ExamSchedule = () => {
   );
 
   return (
-    <div className="flex gap-6 mt-10 mx-20 my-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 mx-5 my-10">
       {/* Exam list */}
-      <div className="w-8/12 bg-white p-6 rounded-lg shadow">
+      <div className="bg-white p-6 rounded-lg shadow">
         <h2 className="text-xl font-bold mb-4">
           📝 Bài kiểm tra ngày {format(selectedDate, "dd/MM/yyyy")}
         </h2>
@@ -133,24 +137,25 @@ const ExamSchedule = () => {
             {filteredExams.map((exam, index) => (
               <li
                 key={index}
-                className="flex items-start gap-4 border p-4 rounded-lg hover:shadow-md transition-shadow"
+                className="sm:flex sm:items-start items-center flex-col sm:flex-row gap-4 border p-4 rounded-lg hover:shadow-md transition-shadow"
               >
                 <img
                   src={exam.image}
                   alt={exam.title}
                   className="w-14 h-14 object-cover rounded-md"
                 />
-                <div className="flex-1">
+                <div className="flex-1 text-center sm:text-left">
                   <h3 className="font-semibold">{exam.title}</h3>
                   <p className="text-sm text-gray-600">
                     {format(exam.date, "dd/MM/yyyy")} • {exam.time} • {exam.duration}
                   </p>
                 </div>
-                <Link to={"/bai-thi"}>
-                  <button className="bg-blue-600 text-white text-sm px-3 py-1.5 rounded hover:bg-blue-700">
-                    Tham gia
-                  </button>
-                </Link>
+                <button
+                  onClick={handleNavigate}
+                  className="bg-blue-600 text-white text-sm px-3 py-1.5 rounded hover:bg-blue-700 mx-auto w-full sm:w-auto my-2"
+                >
+                  Tham gia
+                </button>
               </li>
             ))}
           </ul>
@@ -160,7 +165,7 @@ const ExamSchedule = () => {
       </div>
 
       {/* Calendar */}
-      <div className="w-4/12 bg-white p-6 rounded-lg shadow">
+      <div className="bg-white p-6 rounded-lg shadow">
         <h2 className="text-xl font-bold mb-4">📆 Lịch kiểm tra</h2>
         <Calendar
           onChange={setSelectedDate as any}
@@ -174,6 +179,7 @@ const ExamSchedule = () => {
       </div>
     </div>
   );
+
 };
 
 export default ExamSchedule;

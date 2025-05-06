@@ -1,6 +1,13 @@
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = useCallback(() => {
+    setShowPassword(prev => !prev);
+  }, []);
   return (
     <div className="flex h-screen">
       {/* Left panel - Login Form */}
@@ -23,13 +30,28 @@ export default function LoginPage() {
             <label className="block text-sm text-gray-700 mb-1">Mật khẩu</label>
             <div className="relative">
               <input
-                type="password"
+                id="password"
+                type={showPassword ? "text" : "password"}
+                name="password"
                 placeholder="Nhập mật khẩu"
                 className="w-full px-4 py-2 border rounded outline-none pr-10 focus:ring-2 focus:ring-indigo-500"
+                style={{
+                  transition: 'border-color 0.15s ease, box-shadow 0.15s ease'
+                }}
+                required
               />
-              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer">
-                👁️
-              </span>
+              <button
+                type="button"
+                onClick={handleClickShowPassword}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                style={{ transition: 'color 0.15s ease' }}
+                aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+              >
+                <FontAwesomeIcon
+                  icon={showPassword ? faEye : faEyeSlash}
+                  className="w-5 h-5"
+                />
+              </button>
             </div>
           </div>
 
@@ -38,7 +60,7 @@ export default function LoginPage() {
             <label className="text-sm text-gray-700">Ghi nhớ</label>
           </div>
           <Link to="/">
-            <button className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">
+            <button className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 my-3">
               Đăng nhập
             </button>
           </Link>

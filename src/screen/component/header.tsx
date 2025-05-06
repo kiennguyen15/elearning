@@ -29,7 +29,7 @@ const Header = ({ onToggleSidebar }: { onToggleSidebar: () => void }) => {
   }, []);
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-white shadow">
-      <button className="block md:hidden text-gray-700 text-2xl" onClick={onToggleSidebar}>
+      <button className="block lg:hidden text-gray-700 text-2xl" onClick={onToggleSidebar}>
         <FontAwesomeIcon icon={faBars} />
       </button>
       {/* Search bar */}
