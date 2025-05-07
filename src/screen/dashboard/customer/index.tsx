@@ -78,6 +78,7 @@ export default function QLCustomer() {
                 });
             }
             fetchCustomers();
+            setIsFormModalOpen(false);
         } catch (error) {
             console.error("Error saving customer", error);
         }
