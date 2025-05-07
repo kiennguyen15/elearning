@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -13,8 +13,10 @@ import {
   faUsers,
   faFlask,
 } from '@fortawesome/free-solid-svg-icons';
+import { AppContext } from '../../context/AppContext';
 
 const Sidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const { userInfo } = useContext(AppContext);
   const navigate = useNavigate();
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -109,47 +111,50 @@ const Sidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
                 </li>
               </ul>
             </div>
-            <div>
-              <div className="text-xs text-gray-400 mb-4 mt-6">QUẢN LÝ HỆ THỐNG</div>
-              <ul className="space-y-3">
-                <li
-                  onClick={() => handleNavigate('dashboard/exams')}
-                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
-                >
-                  <span className="w-6 flex justify-center">
-                    <FontAwesomeIcon icon={faFileAlt} />
-                  </span>
-                  <span className="ml-4">Quản lý đề thi</span>
-                </li>
-                <li
-                  onClick={() => handleNavigate('dashboard/bank-question')}
-                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
-                >
-                  <span className="w-6 flex justify-center">
-                    <FontAwesomeIcon icon={faBookOpen} />
-                  </span>
-                  <span className="ml-4">Ngân hàng câu hỏi</span>
-                </li>
-                <li
-                  onClick={() => handleNavigate('dashboard/customer')}
-                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
-                >
-                  <span className="w-6 flex justify-center">
-                    <FontAwesomeIcon icon={faUsers} />
-                  </span>
-                  <span className="ml-4">Quản lý sinh viên</span>
-                </li>
-                <li
-                  onClick={() => handleNavigate('dashboard/subject')}
-                  className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
-                >
-                  <span className="w-6 flex justify-center">
-                    <FontAwesomeIcon icon={faFlask} />
-                  </span>
-                  <span className="ml-4">Quản lý môn học</span>
-                </li>
-              </ul>
-            </div>
+            {(userInfo?.role?.includes('ADMIN') || userInfo?.role?.includes('INSTRUCTOR')) && (
+              <div>
+                <div className="text-xs text-gray-400 mb-4 mt-6">QUẢN LÝ HỆ THỐNG</div>
+                <ul className="space-y-3">
+                  <li
+                    onClick={() => handleNavigate('dashboard/exams')}
+                    className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                  >
+                    <span className="w-6 flex justify-center">
+                      <FontAwesomeIcon icon={faFileAlt} />
+                    </span>
+                    <span className="ml-4">Quản lý đề thi</span>
+                  </li>
+                  <li
+                    onClick={() => handleNavigate('dashboard/bank-question')}
+                    className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                  >
+                    <span className="w-6 flex justify-center">
+                      <FontAwesomeIcon icon={faBookOpen} />
+                    </span>
+                    <span className="ml-4">Ngân hàng câu hỏi</span>
+                  </li>
+                  <li
+                    onClick={() => handleNavigate('dashboard/customer')}
+                    className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                  >
+                    <span className="w-6 flex justify-center">
+                      <FontAwesomeIcon icon={faUsers} />
+                    </span>
+                    <span className="ml-4">Quản lý sinh viên</span>
+                  </li>
+                  <li
+                    onClick={() => handleNavigate('dashboard/subject')}
+                    className="flex items-center px-2 py-1 cursor-pointer hover:text-gray-300 transition"
+                  >
+                    <span className="w-6 flex justify-center">
+                      <FontAwesomeIcon icon={faFlask} />
+                    </span>
+                    <span className="ml-4">Quản lý môn học</span>
+                  </li>
+                </ul>
+              </div>
+            )}
+
           </nav>
         </div>
       </div>

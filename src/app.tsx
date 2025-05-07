@@ -5,6 +5,7 @@ import Header from './screen/component/header';
 import Sidebar from './screen/component/sidebar';
 import Footer from './screen/component/footer';
 import { useState } from 'react';
+import { AppProvider } from './context/AppContext';
 
 const baseHref = document.querySelector('base')?.getAttribute('href')?.replace(/\/$/, '') || '';
 
@@ -39,9 +40,11 @@ const AppLayout = () => {
 
 export const App = () => {
   return (
-    <BrowserRouter basename={baseHref}>
-      <AppLayout />
-    </BrowserRouter>
+    <AppProvider>
+      <BrowserRouter basename={baseHref}>
+        <AppLayout />
+      </BrowserRouter>
+    </AppProvider>
   );
 };
 

@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMagnifyingGlass,
-  faCheck,
   faUser,
   faUsers,
   faBell,
@@ -10,10 +9,12 @@ import {
   faMedal,
   faBars
 } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
 
 const Header = ({ onToggleSidebar }: { onToggleSidebar: () => void }) => {
+  const { userInfo, saveUserInfo, saveIsLogin } = useContext(AppContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -27,6 +28,18 @@ const Header = ({ onToggleSidebar }: { onToggleSidebar: () => void }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const logout = () => {
+    saveUserInfo(null);
+    saveIsLogin(false);
+    localStorage.removeItem('token');
+
+    // Điều hướng sau khi context đã được cập nhật
+    setTimeout(() => {
+      navigate("/login");
+    }, 0);
+  };
+
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-white shadow">
       <button className="block lg:hidden text-gray-700 text-2xl" onClick={onToggleSidebar}>
@@ -77,44 +90,57 @@ const Header = ({ onToggleSidebar }: { onToggleSidebar: () => void }) => {
         <FontAwesomeIcon icon={faBell} />
         <FontAwesomeIcon icon={faEnvelope} />
         {/* User actions */}
-        <div className="relative" ref={dropdownRef}>
-          <button
-            className="flex items-center space-x-2 focus:outline-none"
-            onClick={() => setOpen(!open)}
-          >
-            <img
-              src="https://i.pravatar.cc/300"
-              alt="Avatar"
-              className="w-8 h-8 rounded-full"
-            />
-            <span className="font-semibold text-gray-700 hidden md:block">Kiên</span>
-          </button>
+        {userInfo ? (
+          <div className="relative" ref={dropdownRef}>
+            <button
+              className="flex items-center space-x-2 focus:outline-none"
+              onClick={() => setOpen(!open)}
+            >
+              <img
+                src="https://media.istockphoto.com/id/1393750072/vector/flat-white-icon-man-for-web-design-silhouette-flat-illustration-vector-illustration-stock.jpg?s=612x612&w=0&k=20&c=s9hO4SpyvrDIfELozPpiB_WtzQV9KhoMUP9R9gVohoU="
+                alt="Avatar"
+                className="w-8 h-8 rounded-full"
+              />
+              <span className="font-semibold text-gray-700 hidden md:block">{userInfo?.fullname}</span>
+            </button>
 
-          {open && (
-            <div className="absolute right-0 mt-2 w-72 bg-white rounded-md shadow-lg z-50 overflow-hidden">
-              <div className="px-4 py-3 border-b">
-                <p className="text-sm font-medium">Kiên</p>
-                <p className="text-sm text-gray-500">vankien2002@gmail.com</p>
+            {open && (
+              <div className="absolute right-0 mt-2 w-72 bg-white rounded-md shadow-lg z-50 overflow-hidden">
+                <div className="px-4 py-3 border-b">
+                  <p className="text-sm font-medium">{userInfo?.fullname}</p>
+                  <p className="text-sm text-gray-500">Mã số: {userInfo?.code}</p>
+                </div>
+                <ul className="py-2 text-sm text-gray-700">
+                  <li className="px-4 py-2 flex items-center hover:bg-gray-100 cursor-pointer" onClick={() => { navigate("/"); setOpen(false) }}>
+                    <span className="text-yellow-600 mr-3"><FontAwesomeIcon icon={faUser} /></span> Thông tin cá nhân
+                  </li>
+                  <li className="px-4 py-2 flex items-center hover:bg-gray-100 cursor-pointer" onClick={() => { navigate("/lich-su-thi"); setOpen(false) }}>
+                    <span className="text-yellow-500 mr-3"><FontAwesomeIcon icon={faMedal} /></span> Chứng nhận
+                  </li>
+                  <li className="px-4 py-2 flex items-center hover:bg-gray-100 cursor-pointer" onClick={() => { navigate("/"); setOpen(false) }}>
+                    <span className="text-gray-500 mr-3"><FontAwesomeIcon icon={faUsers} /></span> Lớp học
+                  </li>
+                </ul>
+                <div className="border-t">
+                  <li
+                    className="px-4 py-2 flex items-center text-red-600 hover:bg-red-50 cursor-pointer text-sm"
+                    onClick={() => {
+                      setOpen(false);
+                      logout();
+                    }}
+                  >
+                    <span className="mr-3"> <FontAwesomeIcon icon={faArrowAltCircleLeft} /></span> Đăng Xuất
+                  </li>
+                </div>
               </div>
-              <ul className="py-2 text-sm text-gray-700">
-                <li className="px-4 py-2 flex items-center hover:bg-gray-100 cursor-pointer" onClick={() => { navigate("/"); setOpen(false) }}>
-                  <span className="text-yellow-600 mr-3"><FontAwesomeIcon icon={faUser} /></span> Thông tin cá nhân
-                </li>
-                <li className="px-4 py-2 flex items-center hover:bg-gray-100 cursor-pointer" onClick={() => { navigate("/lich-su-thi"); setOpen(false) }}>
-                  <span className="text-yellow-500 mr-3"><FontAwesomeIcon icon={faMedal} /></span> Chứng nhận
-                </li>
-                <li className="px-4 py-2 flex items-center hover:bg-gray-100 cursor-pointer" onClick={() => { navigate("/"); setOpen(false) }}>
-                  <span className="text-gray-500 mr-3"><FontAwesomeIcon icon={faUsers} /></span> Lớp học
-                </li>
-              </ul>
-              <div className="border-t">
-                <li className="px-4 py-2 flex items-center text-red-600 hover:bg-red-50 cursor-pointer text-sm" onClick={() => { navigate("/login"); setOpen(false) }}>
-                  <span className="mr-3"> <FontAwesomeIcon icon={faArrowAltCircleLeft} /></span> Đăng Xuất
-                </li>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        ) : (
+          <button className="text-black-500" onClick={() => navigate("/login")}>
+            Đăng nhập
+          </button>
+        )}
+
       </div>
     </header>
   );
