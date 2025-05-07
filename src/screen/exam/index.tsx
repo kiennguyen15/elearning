@@ -13,7 +13,7 @@ const ExamPage = () => {
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [examResult, setExamResult] = useState<any[]>([]);
   console.log(examResult);
-  
+
   const [submitted, setSubmitted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(1800); // 30 phút = 1800 giây
   const fetchQuestionExams = async () => {
@@ -145,9 +145,9 @@ const ExamPage = () => {
   }
 
   return (
-    <div className="flex gap-6 my-10 mx-20">
-      {/* Left: Questions */}
-      <div className="w-8/12 bg-white p-6 rounded-lg shadow-md space-y-6">
+    <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 my-10 mx-4 xl:mx-20">
+      {/* Left: Questions (8/12 columns on xl screens) */}
+      <div className="xl:col-span-8 bg-white p-6 rounded-lg shadow-md space-y-6">
         <h2 className="text-xl font-bold mb-4">📝 Bài thi</h2>
         {questionExam.map((q, i) => (
           <div key={i} className="border-b pb-4">
@@ -173,8 +173,8 @@ const ExamPage = () => {
         ))}
       </div>
 
-      {/* Right: Grid + Submit */}
-      <div className="w-4/12 bg-white p-6 rounded-lg shadow-md flex flex-col justify-between sticky top-20 h-fit">
+      {/* Right: Grid + Submit (4/12 columns on xl screens) */}
+      <div className="xl:col-span-4 bg-white p-6 rounded-lg shadow-md flex flex-col justify-between sticky top-20 h-fit">
         <div>
           <div className="mb-6 text-center text-lg font-semibold text-red-600">
             ⏰ Thời gian còn lại: {formatTime(timeLeft)}
@@ -188,7 +188,7 @@ const ExamPage = () => {
                 <div
                   key={i}
                   className={`w-10 h-10 flex items-center justify-center rounded-full border cursor-default
-        ${selected !== null
+              ${selected !== null
                       ? "bg-green-500 text-white"
                       : "bg-gray-200 text-gray-600"
                     }`}
