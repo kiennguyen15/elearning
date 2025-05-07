@@ -14,7 +14,7 @@ export default function EntitesRoutes() {
         <div>
             <Routes>
                 <Route path="chi-tiet-khoa-hoc" element={<CourseDetailPage />} />
-                <Route path="bai-thi" element={<ExamPage />} />
+                <Route path="bai-thi/:id" element={<ExamPage />} />
                 <Route path="lich-su-thi" element={<ExamHistoryPage />} />
                 <Route path="lop-hoc" element={<ClassesPage />} />
                 <Route path="dashboard/*" element={<Dashboard />} />

@@ -1,113 +1,86 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { format, isSameDay } from "date-fns";
-import { Link, useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../../utils/api";
+import { AppContext } from "../../context/AppContext";
 
-const examData = [
-  {
-    title: "Lý thuyết thông tin",
-    date: new Date("2025-04-25"),
-    time: "10:00 AM",
-    duration: "30 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Khóa Học JavaScript Toàn Diện Từ Cơ Bản Đến Nâng Cao",
-    date: new Date("2025-04-30"),
-    time: "2:00 PM",
-    duration: "45 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "ReactJS Cơ Bản Quiz",
-    date: new Date("2025-04-17"),
-    time: "9:00 AM",
-    duration: "40 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "NodeJS và Express Kiểm Tra Giữa Kỳ",
-    date: new Date("2025-04-17"),
-    time: "1:30 PM",
-    duration: "50 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Kiểm Tra SQL và Database Design",
-    date: new Date("2025-04-17"),
-    time: "11:00 AM",
-    duration: "45 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Bài Tập Lớn Java OOP",
-    date: new Date("2025-04-30"),
-    time: "3:00 PM",
-    duration: "60 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Bài tập LTTT",
-    date: new Date("2025-04-25"),
-    time: "10:00 AM",
-    duration: "30 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Lý thuyết thông tin ",
-    date: new Date("2025-04-06"),
-    time: "9:00 AM",
-    duration: "35 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Kỳ Thi Python Cho Người Mới Bắt Đầu",
-    date: new Date("2025-04-12"),
-    time: "8:00 AM",
-    duration: "50 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Bài Kiểm Tra Final TypeScript",
-    date: new Date("2025-04-14"),
-    time: "2:00 PM",
-    duration: "40 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Lập Trình Web Fullstack Kiểm Tra Cuối Khóa",
-    date: new Date("2025-04-01"),
-    time: "3:30 PM",
-    duration: "60 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-  {
-    title: "Thiết Kế Giao Diện UI/UX Quiz",
-    date: new Date("2025-04-12"),
-    time: "4:00 PM",
-    duration: "35 phút",
-    image: "https://gocnhocuachi.com/wp-content/uploads/2023/04/html-css.png",
-  },
-];
+// Define the interface for CourseExams
+interface CourseExams {
+  _id?: string;
+  cid?: string;
+  title: string;
+  percentAnswer: number;
+  direct: boolean;
+  type: string;
+  availableFrom: string;
+  availableTo: string;
+}
 
 const ExamSchedule = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { userInfo } = useContext(AppContext);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date()); // Allow selectedDate to be Date or null
   const WEEKDAYS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
-  const examDates = examData.map((e) => format(e.date, "yyyy-MM-dd"));
+  const [allExams, setAllExams] = useState<CourseExams[]>([]); // Use the CourseExams interface
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate('/bai-thi');
+  // Fetch all exams from the API
+  const fetchAllExams = async () => {
+    try {
+      const response = await api.get(`course_Exams/getAllExamCourse?page=${1}&limit=${99999999}`);
+      const exams = response.data.data.map((exam: any) => ({
+        _id: exam._id,
+        cid: exam.cid,
+        title: exam.title,
+        percentAnswer: exam.percentAnswer,
+        direct: exam.direct,
+        type: exam.type,
+        availableFrom: exam.availableFrom,
+        availableTo: exam.availableTo,
+      }));
+      setAllExams(exams);
+    } catch (error) {
+      console.error("Error fetching exam data:", error);
+    }
   };
-  const tileClassName = ({ date, view }: { date: any; view: any }) => {
+
+  useEffect(() => {
+    fetchAllExams();
+  }, []);
+
+  const examDates = allExams.map((e) => format(new Date(e.availableFrom), "yyyy-MM-dd"));
+
+  const handleNavigate = async (id: string) => {
+    try {
+      await api.post(`user_Course/addUsersToCourse`, {
+        uid: [userInfo._id],
+        cid: filteredExams[0].cid
+      });
+
+      await api.post(`course_Exams/start-exam`, { ceid: id });
+
+      navigate(`/bai-thi/${id}`);
+    } catch (error: any) {
+      if (
+        error?.response?.data?.code === "EXAM_TIME_OVERDUE"
+      ) {
+        alert("Đã quá thời gian làm bài kiểm tra");
+      } else if (error?.response?.data?.code === "ALREADY_REGISTERED_FOR_THE_EXAM") {
+        alert("Sinh viên đã đăng ký thi, vui lòng kiểm tra lại");
+      } else {
+        console.error("Error starting exam:", error);
+      }
+    }
+  };
+
+  const tileClassName = ({ date, view }: { date: Date; view: string }) => { // Updated to match Date type
     const formatted = format(date, "yyyy-MM-dd");
     if (view === "month" && examDates.includes(formatted)) {
       return "text-black font-semibold";
     }
     return "";
   };
-
   const tileContent = ({ date, view }: { date: any; view: any }) => {
     const formatted = format(date, "yyyy-MM-dd");
     const isExamDate = view === "month" && examDates.includes(formatted);
@@ -121,16 +94,14 @@ const ExamSchedule = () => {
     );
   };
 
-  const filteredExams = examData.filter((exam) =>
-    isSameDay(exam.date, selectedDate)
-  );
+  const filteredExams = allExams.filter((e) => format(new Date(e.availableFrom), "yyyy-MM-dd") === format(selectedDate || new Date, "yyyy-MM-dd"));
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 mx-5 my-10">
       {/* Exam list */}
       <div className="bg-white p-6 rounded-lg shadow">
         <h2 className="text-xl font-bold mb-4">
-          📝 Bài kiểm tra ngày {format(selectedDate, "dd/MM/yyyy")}
+          📝 Bài kiểm tra ngày {format(selectedDate || new Date, "dd/MM/yyyy")}
         </h2>
         {filteredExams.length > 0 ? (
           <ul className="space-y-4">
@@ -139,19 +110,20 @@ const ExamSchedule = () => {
                 key={index}
                 className="sm:flex sm:items-start items-center flex-col sm:flex-row gap-4 border p-4 rounded-lg hover:shadow-md transition-shadow"
               >
-                <img
+                {/* <img
                   src={exam.image}
                   alt={exam.title}
                   className="w-14 h-14 object-cover rounded-md"
-                />
+                /> */}
                 <div className="flex-1 text-center sm:text-left">
                   <h3 className="font-semibold">{exam.title}</h3>
                   <p className="text-sm text-gray-600">
-                    {format(exam.date, "dd/MM/yyyy")} • {exam.time} • {exam.duration}
+                    {format(exam.availableFrom, "dd/MM/yyyy")}
+                    {/* • {exam.time} • {exam.duration} */}
                   </p>
                 </div>
                 <button
-                  onClick={handleNavigate}
+                  onClick={() => handleNavigate(exam._id as string)}
                   className="bg-blue-600 text-white text-sm px-3 py-1.5 rounded hover:bg-blue-700 mx-auto w-full sm:w-auto my-2"
                 >
                   Tham gia

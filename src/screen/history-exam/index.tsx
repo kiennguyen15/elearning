@@ -1,24 +1,50 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import { format, parseISO } from "date-fns";
+import api from "../../utils/api";
+import { AppContext } from "../../context/AppContext";
 
 export default function ExamHistoryPage() {
-  const [history] = useState([
-    {
-      name: "Nguyen Van Kien",
-      courseName: "Comprehensive JavaScript course from basic to advanced",
-      score: 17,
-      totalQuestions: 20,
-      date: "2025-04-25",
-    },
-    {
-      name: "Nguyen Van Kien",
-      courseName: "Introduction JavaScript",
-      score: 7,
-      totalQuestions: 10,
-      date: "2025-04-18",
-    },
-  ]);
+  const { userInfo } = useContext(AppContext);
+  const [examResult, setExamResult] = useState<any[]>([]);
+  console.log(examResult);
+
+  const fetchData = async () => {
+    try {
+      // Fetch exam results
+      const examResponse = await api.get(`/exam_Results/getExamResults?page=1&limit=99999999`);
+      const allExamResults = examResponse.data.data;
+      const filteredExamResults = allExamResults.filter(
+        (result: any) => result.uid === userInfo._id
+      );
+
+      if (filteredExamResults.length === 0) {
+        setExamResult([]);
+        return;
+      }
+
+      // Fetch course exams
+      const courseResponse = await api.get(`course_Exams/getAllExamCourse?page=1&limit=99999999`);
+      const allCourses = courseResponse.data.data;
+
+      // Gắn tên course vào từng exam result
+      const enrichedResults = filteredExamResults.map((exam: any) => {
+        const course = allCourses.find((c: any) => c._id === exam.ceid);
+        return {
+          ...exam,
+          courseName: course ? course.name : "Không tìm thấy khóa học",
+        };
+      });
+
+      setExamResult(enrichedResults);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const generatePDF = (exam: any) => {
     const doc = new jsPDF({
@@ -66,11 +92,10 @@ export default function ExamHistoryPage() {
   return (
     <div className="mt-10 mx-20 min-h-screen">
       <h2 className="text-3xl font-bold text-center mb-8">📝 Lịch sử bài kiểm tra</h2>
-      {history.length === 0 ? (
+      {examResult.length === 0 ? (
         <p className="text-center text-lg">Chưa có bài kiểm tra nào.</p>
       ) : (
-        history.map((exam, index) => {
-          const passed = exam.score >= exam.totalQuestions * 0.7;
+        examResult.map((exam, index) => {
           return (
             <div
               key={index}
@@ -78,19 +103,19 @@ export default function ExamHistoryPage() {
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h3 className="text-xl font-semibold text-blue-700">{exam.courseName}</h3>
+                  <h3 className="text-xl font-semibold text-blue-700">{exam?.InfoCoursesExam?.title}</h3>
                   <p className="text-lg">
-                    Điểm: <span className="font-medium">{exam.score}/{exam.totalQuestions}</span>
+                    Điểm: <span className="font-medium">{exam.score}/{exam.gradedAnswers.length}</span>
                   </p>
                   <p className="text-sm text-gray-500">
-                    Ngày: {format(parseISO(exam.date), "dd/MM/yyyy")}
+                    Ngày: {format(parseISO(exam.createdAt), "dd/MM/yyyy")}
                   </p>
-                  <p className={`text-sm mt-1 ${passed ? "text-green-600" : "text-red-500"}`}>
-                    {passed ? "✅ Bạn đã vượt qua!" : "❌ Chưa đạt, hãy thử lại!"}
+                  <p className={`text-sm mt-1 ${exam.status === "PASSED" ? "text-green-600" : "text-red-500"}`}>
+                    {exam.status === "PASSED" ? "✅ Bạn đã vượt qua!" : "❌ Chưa đạt, hãy thử lại!"}
                   </p>
                 </div>
 
-                {passed && (
+                {exam.status === "PASSED" && (
                   <button
                     onClick={() => generatePDF(exam)}
                     className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap"

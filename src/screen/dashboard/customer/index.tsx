@@ -83,18 +83,19 @@ export default function QLCustomer() {
         }
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: string) => {
         const confirmed = window.confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');
         if (confirmed) {
             try {
-                api.delete(`users/lockUser?uid=${id}`);
-                fetchCustomers();
+                await api.delete(`users/lockUser?uid=${id}`, {
+                    data: { status: 'INACTIVE' },
+                });
+                fetchCustomers(); // gọi sau khi delete thành công
             } catch (error) {
                 console.error("Error deleting customer", error);
             }
         }
     };
-
     const handleDetail = (student: Student) => {
         setSelectedStudent(student);
         setIsDetailModalOpen(true);
@@ -163,7 +164,7 @@ export default function QLCustomer() {
                                         className="text-yellow-600 hover:text-yellow-800">
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
-                                    <button onClick={() => handleDelete(s.id)} className="text-red-600 hover:text-red-800">
+                                    <button onClick={() => handleDelete(s._id)} className="text-red-600 hover:text-red-800">
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </td>
