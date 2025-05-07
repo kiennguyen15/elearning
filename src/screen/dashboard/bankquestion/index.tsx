@@ -109,6 +109,15 @@ export default function QLBankQuestion() {
         }
         fetchQuizzs();
         setShowForm(false);
+        setForm({
+          questionText: '',
+          type: 'MULTIPLE_CHOICE',
+          answerKey: '',
+          options: [
+            { label: '', value: '', isCorrect: false },
+            { label: '', value: '', isCorrect: false },
+          ],
+        });
         setEditingId(null);
       } catch (error) {
         console.error("Error saving question", error);
@@ -139,6 +148,8 @@ export default function QLBankQuestion() {
     }
   };
   const handleDelete = async (id: string) => {
+    const confirmed = window.confirm('Bạn chắc chắn muốn xóa câu hỏi này?');
+    if (!confirmed) return;
     try {
       await api.delete(`quizzes/delete?id=${id}`);
       fetchQuizzs();
@@ -261,7 +272,7 @@ export default function QLBankQuestion() {
                     <FontAwesomeIcon icon={faEdit} />
                   </button>
                   <button
-                    // onClick={() => handleDelete(s._id as string)}
+                    onClick={() => handleDelete(s._id as string)}
                     className="text-red-600 hover:text-red-800">
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
