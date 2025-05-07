@@ -39,7 +39,7 @@ export default function QLExams() {
         availableFrom: '',
         availableTo: '',
     });
-    
+
     const fetchCourseExams = async () => {
         try {
             const response = await api.get(`course_Exams/getAllExamCourse?page=${1}&limit=${99999999}`);
@@ -196,7 +196,6 @@ export default function QLExams() {
                                 <th className="p-2 border">Tiêu đề</th>
                                 <th className="p-2 border">% Đạt</th>
                                 <th className="p-2 border">Thời gian mở</th>
-                                <th className="p-2 border">Trạng thái</th>
                                 <th className="p-2 border">Thao tác</th>
                             </tr>
                         </thead>
@@ -209,13 +208,6 @@ export default function QLExams() {
                                     <td className="p-2 border text-center">{s.percentAnswer} %</td>
                                     <td className="p-2 border text-center">
                                         {new Date(s.availableFrom).toLocaleDateString('vi-VN')}
-                                    </td>
-                                    <td className="p-2 border text-center">
-                                        <span
-                                            className={`px-2 py-1 rounded text-white ${s.InfoUserCourse?.length > 0 ? "bg-green-600" : "bg-red-600"}`}
-                                        >
-                                            {s.InfoUserCourse?.length > 0 ? "Đã có đề thi" : "Chưa có đề thi"}
-                                        </span>
                                     </td>
                                     <td className="p-2 border space-x-3 text-center">
                                         <button
@@ -341,11 +333,15 @@ export default function QLExams() {
                         {examQuestions?.length > 0 ? (
                             <div className="mt-6">
                                 <h3 className="text-lg font-semibold mb-2">Danh sách câu hỏi:</h3>
-                                <ul className=" list-inside space-y-1">
-                                    {examQuestions.map((question, index) => (
-                                        <li key={index}>{index + 1}. {question?.questionText || 'Không có tiêu đề'}</li>
-                                    ))}
-                                </ul>
+                                <div className="max-h-64 overflow-y-auto pr-2"> {/* <-- Thêm giới hạn chiều cao và scroll */}
+                                    <ul className="list-inside space-y-1">
+                                        {examQuestions.map((question, index) => (
+                                            <li key={index}>
+                                                {index + 1}. {question?.questionText || 'Không có tiêu đề'}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                         ) : (
                             <>
