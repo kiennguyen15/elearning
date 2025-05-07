@@ -79,7 +79,10 @@ export default function QLCustomer() {
             }
             fetchCustomers();
             setIsFormModalOpen(false);
-        } catch (error) {
+        } catch (error: any) {
+            if (error.response.status === 400 && error.response.data.code === 11000) {
+                alert("Số điện thoại đã được đăng ký. Vui lòng nhập số điện thoại khác!");
+            }
             console.error("Error saving customer", error);
         }
     };
